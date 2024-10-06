@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" class="form-control" id="fullname" placeholder="Enter full name">
+                <span class="error" id="fullnameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact</label>
+                <input type="text" class="form-control" id="contact" placeholder="Enter contact">
+                <span class="error" id="contactError"></span>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob">
+                <span class="error" id="dobError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label><br>
+                <input type="radio" name="gender" value="Male"> Male
+                <input type="radio" name="gender" value="Female"> Female
+                <span class="error" id="genderError"></span>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="validateRegisterForm()">Register</button>
+        </form>
+        <p class="text-center mt-3">
+            Already have an account? <a href="login.html">Login here</a>
+        </p>
+    </div>
+
+    <script>
+        function validateRegisterForm() {
+            var isValid = true;
+
+            // Get input fields
+            var fullname = document.getElementById("fullname").value;
+            var contact = document.getElementById("contact").value;
+            var dob = document.getElementById("dob").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+
+            // Clear previous error messages
+            document.getElementById("fullnameError").innerHTML = "";
+            document.getElementById("contactError").innerHTML = "";
+            document.getElementById("dobError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+            document.getElementById("genderError").innerHTML = "";
+
+            // Validate Full Name
+            if (fullname === "") {
+                document.getElementById("fullnameError").innerHTML = "Full Name is required.";
+                isValid = false;
+            }
+
+            // Validate Contact
+            if (contact === "" || isNaN(contact) || contact.length < 10) {
+                document.getElementById("contactError").innerHTML = "Enter a valid contact number.";
+                isValid = false;
+            }
+
+            // Validate Date of Birth
+            if (dob === "") {
+                document.getElementById("dobError").innerHTML = "Date of Birth is required.";
+                isValid = false;
+            }
+
+            // Validate Email
+            if (email === "" || !validateEmail(email)) {
+                document.getElementById("emailError").innerHTML = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            // Validate Password
+            if (password === "" || password.length < 6) {
+                document.getElementById("passwordError").innerHTML = "Password must be at least 6 characters long.";
+                isValid = false;
+            }
+
+            // Validate Gender
+            if (!gender) {
+                document.getElementById("genderError").innerHTML = "Gender is required.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Registration successful!");
+                // Submit the form or redirect to a new page
+            }
+        }
+
+        // Email validation helper
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+</body>
+</html>

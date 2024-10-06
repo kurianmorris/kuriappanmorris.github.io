@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <span class="error" id="passwordError"></span>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="validateLoginForm()">Login</button>
+        </form>
+        <p class="text-center mt-3">
+            Don't have an account? <a href="register.html">Register here</a>
+        </p>
+    </div>
+
+    <script>
+        function validateLoginForm() {
+            var isValid = true;
+
+            // Get input fields
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Clear previous error messages
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passwordError").innerHTML = "";
+
+            // Validate Email
+            if (email === "" || !validateEmail(email)) {
+                document.getElementById("emailError").innerHTML = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            // Validate Password
+            if (password === "" || password.length < 6) {
+                document.getElementById("passwordError").innerHTML = "Password
